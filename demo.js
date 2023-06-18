@@ -81,7 +81,7 @@ function renderImages() {
 function addimage(file) {
   const img = new Image;
   const fr = new FileReader;
-  fr.onload = () => {img.src = fr.result; img.name = img.name};
+  fr.onload = () => {img.src = fr.result; img.name = file.name};
   fr.readAsDataURL(file);
   img.onload = () => {
     images.push(img);
