@@ -17,7 +17,12 @@ const htmlOuter = inner => `
   </style>
 </head>
 <body>
+<div id='preview'>
 ${inner}
+</div>
+<script>
+${downloadImage.toString()}
+</script>
 </body>
 </html>
 `;
@@ -34,7 +39,21 @@ function download() {
     +  ';charset=utf-8,'
     + encodeURIComponent(htmlOuter(elHtml));
   link.click();
-  URL.revokeObjectURL(link.href);
+//  URL.revokeObjectURL(link.href);
+}
+
+function downloadImage(index) {
+  for (let i = 0; i < preview.childNodes.length; i++) {
+    const node = preview.childNodes[i];
+    if(node.nodeName === 'IMG' && 0 === index--) {
+      const image = node;
+      const link = document.createElement('a');
+      link.download = image.name;
+      link.href = image.src;
+      link.click();
+      return;
+    }
+  }
 }
 
 function addimages() {
@@ -46,19 +65,23 @@ function addimages() {
 
 function renderImages() {
   preview.innerHTML = '';
-  images.forEach(x => {
+  images.forEach((x, i) => {
 //    const deleteButton = document.createElement('button');
+    const downloadButton = document.createElement('button');
+    downloadButton.innerText = 'Save Image';
+    downloadButton.setAttribute('onclick', `downloadImage(${i})`);
     x.style.maxHeight = '100%';
     x.style.maxWidth = '100%';
     x.style.paddingTop = '1em';
     preview.appendChild(x)
+    preview.appendChild(downloadButton);
   });
 }
 
 function addimage(file) {
   const img = new Image;
   const fr = new FileReader;
-  fr.onload = () => {img.src = fr.result};
+  fr.onload = () => {img.src = fr.result; img.name = img.name};
   fr.readAsDataURL(file);
   img.onload = () => {
     images.push(img);
