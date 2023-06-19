@@ -43,7 +43,8 @@ function download() {
 //  URL.revokeObjectURL(link.href);
 }
 
-function downloadImage(index) {
+function downloadImage(event, index) {
+  event.stopPropagation(); // so that clicking does not trigger focusImage as well
   const imageNodes = document.getElementsByClassName('image-preview');
   const image = imageNodes[index];
   const link = document.createElement('a');
@@ -119,7 +120,7 @@ function renderImages() {
 
     const downloadButton = document.createElement('button');
     downloadButton.innerText = 'Save Image';
-    downloadButton.setAttribute('onclick', `downloadImage(${i})`);
+    downloadButton.setAttribute('onclick', `downloadImage(event,${i})`);
 
     x.className = 'image-preview';
 
