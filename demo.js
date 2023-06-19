@@ -37,10 +37,8 @@ function download() {
   const link = document.createElement('a');
   const mimeType = 'text/plain';
   link.download = `${(new Date()).toISOString()}-photobook.html`;
-  link.href = 'data:'
-    + mimeType
-    +  ';charset=utf-8,'
-    + encodeURIComponent(htmlOuter(elHtml));
+  const blob = new Blob([htmlOuter(elHtml)], {type: mimeType});
+  link.href = URL.createObjectURL(blob);
   link.click();
 //  URL.revokeObjectURL(link.href);
 }
