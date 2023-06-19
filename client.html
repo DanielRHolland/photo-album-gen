@@ -6,9 +6,14 @@
     </head>
     <body>
         <script type="text/javascript" src="demo.js"></script>
+        <label for="image">Add Images to Album</label>
         <input type="file" id="image" multiple accept="image" name="image" onchange="addimages()"/>
-        <button onclick="download()">Download</button>
+        <button onclick="download()">Download Photo Album</button>
+        <button onclick="reset()">Reset</button>
+        <hr/>
+        <h3><em>Album Preview</em></h3>
         <div id="preview"></div>
         </div>
+        <dialog id="modal"></dialog>
     </body>
 </html>
