@@ -1,0 +1,12 @@
+.steps {
+    margin-bottom: 1em;
+}
+.step {
+    border: solid thin;
+    padding: 0.7em;
+    border-radius: 1em;
+    margin: 0.14em;
+    display: inline-block;
+    box-sizing: border-box;
+}
+
